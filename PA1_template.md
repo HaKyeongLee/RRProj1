@@ -130,7 +130,7 @@ plot(dataDT$interval, dataDT$avgsteps,
 
 ![](PA1_template_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
-Finally, I identify the five-minute interval that contains the maximum number of steps on averag across all days in the dataset. I first identify the row at which the maximum number is located, and then print the corresponding five-minute interval value.
+Finally, I identify the five-minute interval that contains the maximum number of steps on average across all days in the dataset. I first identify the row at which the maximum number is located, and then print the corresponding five-minute interval value.
 
 ```r
 print(dataDT[which.max(dataDT$avgsteps),3])
@@ -142,7 +142,7 @@ print(dataDT[which.max(dataDT$avgsteps),3])
 
 
 ### C. Imputing missing values
-In the first part of this section, I work with the original data frame `tempDT`. Let's first count the number of rows with missing values to get a better sense of where thee missing values come from. I first change the class of `date` variable from character to date class. Then, use `complete.cases` and `sum` to count the number of rows with missing values.
+In the first part of this section, I work with the original data frame `tempDT`. Let's first count the number of rows with missing values to get a better sense of where the missing values come from. I first change the class of `date` variable from character to date class. Then, use `complete.cases` and `sum` arguments to count the number of rows with missing values.
 
 ```r
 tempDT$date <- as.Date(tempDT$date, format="%Y-%m-%d")
@@ -190,11 +190,22 @@ hist(filledDT$totsteps,
 Finally, I compute the mean and median of the total number of steps taken per day using the `filledDT` data table. 
 
 ```r
-new_mean <- mean(filledDT$totsteps)
-new_median <- median(filledDT$totsteps)
+print(new_mean <- mean(filledDT$totsteps))
 ```
 
-Now let's compare the above results with those from dataset with missing values. While the mean remains the same at 1.0766189\times 10^{4}, the median slightly increases from 1.0765\times 10^{4} to 1.0766189\times 10^{4} once missing values are replaced. This is because the mean values are reinforced after we replace the missing values with average values. Also, the number of frequencies for each bar in histogram doubles.
+```
+## [1] 10766.19
+```
+
+```r
+print(new_median <- median(filledDT$totsteps))
+```
+
+```
+## [1] 10766.19
+```
+
+Now let's compare the above results with those from the dataset with missing values. While the mean remains the same at 1.0766189\times 10^{4}, the median slightly increases from 1.0765\times 10^{4} to 1.0766189\times 10^{4} once missing values are replaced. This is because the mean values are reinforced after we replace the missing values with average values. Also, the number of frequencies for each bar in histogram increases.
 
 ### D. Are there differences in activity patterns between weekdays and weekends?
 In this section, I use `filledDT` to create a factor variable `wday` indicating whether a given date is a weekday or weekend day. 
